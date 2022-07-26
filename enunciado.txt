@@ -1,0 +1,9 @@
+- Ahorcado
+
+- El ordenador tiene que explicar las instrucciones
+- El ordenador tiene que elegir una palabra aleatoria entre una lista elegida
+- El ordenador debe avisar de cuántas letras tiene
+- El jugador tiene que ingresar una letra
+- El ordenador tiene que comparar cada letra de la palabra con la ingresada por el jugador
+- Si la letra es correcta, destapar la letra.
+- Si la letra es incorrecta, quitar un intento.
