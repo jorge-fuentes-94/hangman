@@ -37,48 +37,9 @@ def comprobar_resultado(input_jugador,letras):
        
        
 def imagen_juego (turnos_restantes): 
-    if turnos_restantes == 5:
-        imagen = """
-                 |
-                 |
-                 |
-                 _
-               """    
-    if turnos_restantes == 4:
-        imagen = """
-              |--|
-              0  |
-                 |
-                 _
-              """
-    if turnos_restantes == 3:
-        imagen ="""
-              |--|
-              0  |
-              |  |
-                 _
-              """ 
-    if turnos_restantes == 2:
-        imagen = """
-              |--|
-              0  |
-              |  |
-              |  _
-              """    
-    if turnos_restantes == 1:
-        imagen = """
-              |--|
-              0  |
-              |- |
-              |  _
-              """ 
-    if turnos_restantes == 0:
-        imagen = """
-              |--|"
-              |- |
-              |  _
-              """    
-    return imagen
+    imagen = ["\n|\n|\n|\n_","\n|--|\n0  |\n   |\n   _","\n|--|\n0  |\n|  |\n  _","\n|--|\n0  |\n|  |\n|  _","\n|--|\n0  |\n|- |\n|  _","\n|--|\nx  |\n|- |\n|  _"]
+    indice = 5-turnos_restantes
+    return imagen[indice]
 
 def mostrar_resultado (solución,repeticiones,turnos_restantes):
     imagen = imagen_juego(turnos_restantes)
@@ -90,6 +51,13 @@ def mostrar_resultado (solución,repeticiones,turnos_restantes):
                 """.format(imagen,turnos_restantes,solución,repeticiones)
     print (resultado)
     
+def comprobar_final(error,repitición,posición):
+    if error == True:
+        return -2
+    elif repetición == True:
+        return -3
+    else:
+        return posición
     
 turnos_restantes = 5
 palabra = palabra_elegida()
@@ -115,17 +83,21 @@ while turnos_restantes > 0:
      error = comprobar_errores(intento)
      repetición = comprobar_repeticiones(intento,repeticiones)
      posición = comprobar_resultado(intento,letras)
+     comprobación_final = comprobar_final(error,repetición,posición)
      
-     if error == True or repetición == True:
+     if comprobación_final == -2:
         print("Algo ha salido mal, vuelve a intentarlo.")
         
-     if error != True and repetición != True and posición >= 0:
+     elif comprobación_final == -3:
+        print("Esa letra ya la has intentado. Vuelve a probar.")
+        
+     if comprobación_final >= 0:
        solución[posición] = intento
        repeticiones.append(intento)
        aciertos += 1
        mostrar_resultado(solución,repeticiones,turnos_restantes)
        
-     elif error != True and repetición != True and posición < 0: 
+     elif comprobación_final == -1: 
        repeticiones.append(intento)
        turnos_restantes -= 1
        mostrar_resultado(solución,repeticiones,turnos_restantes)
